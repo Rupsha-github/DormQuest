@@ -1,0 +1,27 @@
+<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/listings"><img width="90" height="70" src="/assets/logo1.png"/></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <p style="margin-top: 15px;  font-weight: 600;"><a class="nav-link" href="/listings"><span style="color: #064064;">Explore</span> <span style="color: #f7ac39;">Dorms</span> <span style="color: #009bae;">Near You</span></a></p> 
+      </div>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav ms-auto">
+        <% if(!currUser) { %>
+        <a class="nav-link" href="/signup">Sign Up</a>
+        <a class="nav-link" href="/login">Login</a>
+        <% } %>
+        <% if(currUser) { %>
+        <a class="nav-link" href="/logout">Logout</a>
+        <% } %>
+      </div>
+    </div>
+    <div class="navbar-nav ms-auto">
+      <a class="nav-link" href="/listings/new">Create New Dorm</a>
+    </div>
+  </div>
+</nav>
