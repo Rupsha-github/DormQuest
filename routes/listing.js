@@ -9,7 +9,7 @@ const upload = multer({ storage });
 
 router.route("/")
 .get(wrapAsync(listingController.index))
-.post(isLoggedIn, upload.single('listing[image]'), validateListing, wrapAsync(listingController.createListing));
+.post(isLoggedIn, validateListing, upload.single('listing[image]'), wrapAsync(listingController.createListing));
 
 
 //NEW ROUTE : create operation of CRUD
