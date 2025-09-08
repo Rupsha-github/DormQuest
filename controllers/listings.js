@@ -19,8 +19,10 @@ module.exports.showListing = async (req, res) => {
   }
   if (req.query.payment === "success") {
       req.flash("success", "Payment successful! Booking confirmed.");
+      return res.redirect(`/listings/${id}`);
   } else if (req.query.payment === "failed") {
       req.flash("error", "Payment failed. Please try again.");
+      return res.redirect(`/listings/${id}`);
   }
   res.render("listings/show.ejs", {listing});
 };
@@ -69,12 +71,13 @@ module.exports.destroyListing = async (req, res) => {
 
 module.exports.bookListing = async (req, res) => {
   const { id } = req.params;
+  const { months } = req.body;
   const listing = await Listing.findById(id);
   if (!listing) {
     req.flash("error", "Listing not found");
     return res.redirect("/listings");
   }
-
+  const quantity = parseInt(months) || 1; // fallback to 1 if invalid
   try {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -85,9 +88,9 @@ module.exports.bookListing = async (req, res) => {
             name: listing.title,
             description: listing.description
           },
-          unit_amount: (listing.price * 100) + (0.18 * listing.price * 100) // Stripe expects amount in paise
+          unit_amount: Math.round((listing.price * 100) * 1.18) // price + 18% GST
         },
-        quantity: 1,
+        quantity: quantity,
       }],
       mode: 'payment',
       success_url: `${req.protocol}://${req.get('host')}/listings/${listing._id}?payment=success`,

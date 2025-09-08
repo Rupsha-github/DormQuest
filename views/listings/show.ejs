@@ -10,6 +10,15 @@
             <br>
             <% if (currUser) { %>
             <form action="/listings/<%= listing._id %>/book" method="POST">
+                <div class="mb-3 col-6 mx-auto">
+                    <label for="months" class="form-label">Select Duration (in months)</label>
+                    <select class="form-select" name="months" id="months" required>
+                        <% for (let i = 1; i <= 12; i++) { %>
+                        <option value="<%= i %>"><%= i %> month<%= i > 1 ? 's' : '' %></option>
+                        <% } %>
+                    </select>
+                </div>
+
                 <div class="d-grid gap-2 col-6 mx-auto">
                     <button class="btn btn-warning mb-3 btn-lg" type="submit">BOOK NOW</button>
                 </div>
