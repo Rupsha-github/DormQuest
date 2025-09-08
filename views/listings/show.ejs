@@ -8,6 +8,13 @@
     <img src="<%= listing.image.url %>" class="card-img-top show-img mt-3 mb-3" alt="listing_image">
     <div class="card-body">
             <br>
+            <% if (currUser) { %>
+            <form action="/listings/<%= listing._id %>/book" method="POST">
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <button class="btn btn-warning mb-3 btn-lg" type="submit">BOOK NOW</button>
+                </div>
+            </form>
+            <% } %>
             <p class="card-text">Owner : <%= listing.owner.username %></p>
             <p class="card-text"><%= listing.description %></p>
             <p class="card-text">&#8377; <%= listing.price.toLocaleString("en-IN") %> per month</p>

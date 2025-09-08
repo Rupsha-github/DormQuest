@@ -24,5 +24,8 @@ router.route("/:id")
 //EDIT ROUTE : update operation of CRUD
 router.get("/:id/edit", isLoggedIn, isOwner, wrapAsync(listingController.renderEditForm))
 
+//BOOKING ROUTE
+router.post("/:id/book", isLoggedIn, wrapAsync(listingController.bookListing));
+
 
 module.exports = router;
